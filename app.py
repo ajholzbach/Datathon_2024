@@ -38,7 +38,7 @@ X = training_data[['surface_x', 'surface_y']]
 y = training_data['OilPeakRate'] 
 knn_results = []
 for num in knn_values:
-    new_model = KNeighborsRegressor(num = n)
+    new_model = KNeighborsRegressor(n_neighbors = num)
     new_model.fit(X, y)
     xx = np.linspace(x_min, x_max, 1000)
     yy = np.linspace(x_min, x_max, 1000)
@@ -47,8 +47,6 @@ for num in knn_values:
     pred = new_model.predict(X_grid)
     knn_results.append(pred)
 
-# Predict the values of the mesh
-y_pred = model.predict(X_grid)
 #
 # Site Stuff
 #
@@ -66,7 +64,7 @@ with col1:
 with col2:
     knn_dist = st.radio('KNN:', [None, *knn_values], index=0)
 
-fig = px.scatter(training_data, x=feature_used + '_x', y=feature_used + '_y',
+fig = go.Scatter(training_data[feature_used + '_x'], training_data[feature_used + '_y'],
     color='OilPeakRate',
     color_continuous_scale=px.colors.sequential.Agsunset,
     hover_data={'pad_id': True,
