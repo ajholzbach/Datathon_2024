@@ -36,16 +36,16 @@ knn_values = [3, 5, 10, 15]
 
 X = training_data[['surface_x', 'surface_y']]
 y = training_data['OilPeakRate'] 
-knn_results = []
+knn_results = {}
+xx = np.linspace(x_min, x_max, 1000)
+yy = np.linspace(x_min, x_max, 1000)
+xxm, yym = np.meshgrid(xx, yy)
 for num in knn_values:
     new_model = KNeighborsRegressor(n_neighbors = num)
     new_model.fit(X, y)
-    xx = np.linspace(x_min, x_max, 1000)
-    yy = np.linspace(x_min, x_max, 1000)
-    xx, yy = np.meshgrid(xx, yy)
-    X_grid = np.c_[xx.ravel(), yy.ravel()]
+    X_grid = np.c_[xxm.ravel(), yym.ravel()]
     pred = new_model.predict(X_grid)
-    knn_results.append(pred)
+    knn_results[num] = pred
 
 #
 # Site Stuff
@@ -57,34 +57,36 @@ Well Tempered</h1>"
 st.markdown("<h1 style=\"font-family: 'Helvetica'\">Well Locations</h1>"
     ,unsafe_allow_html=True)
 
-col1, col2 = st.columns(2)
+feature_used = st.radio('Location:', location_features, index=0)
 
-with col1:
-    feature_used = st.radio('Location:', location_features, index=0)
-with col2:
-    knn_dist = st.radio('KNN:', [None, *knn_values], index=0)
+fig = go.Figure()
 
-fig = go.Scatter(training_data[feature_used + '_x'], training_data[feature_used + '_y'],
-    color='OilPeakRate',
-    color_continuous_scale=px.colors.sequential.Agsunset,
-    hover_data={'pad_id': True,
-                'OilPeakRate': False,
-                feature_used + '_x': False,
-                feature_used + '_y': False}
-)
-fig.update_xaxes(range=[x_min, x_max])
-fig.update_yaxes(range=[y_min, y_max])
+fig.add_trace(go.Scatter(
+    x=training_data[feature_used + '_x'],
+    y=training_data[feature_used + '_y'],
+    mode='markers',
+    marker=dict(
+        color=training_data['OilPeakRate'],
+        colorscale=px.colors.sequential.Agsunset,
+        size=3,
+        colorbar=dict(title='OilPeakRate')
+    ),
+    hoverinfo='text',
+    hovertext=['id: ' + str(id) for id in training_data['pad_id']]
+))
+
 fig.update_layout(
     plot_bgcolor='#0f1116',  # Dark plot background
     paper_bgcolor='#0f1116',  # Dark around the plot
     font_color="white",  # White font for contrast
+    xaxis=dict(
+        range=[x_min, x_max],
+        showgrid=False
+    ),
     yaxis=dict(
+        range=[y_min, y_max],
         showgrid=False
     )
 )
-# Optionally, if you have additional information to show on hover:
-fig.update_traces(marker=dict(size=3),
-    hoverinfo='text',
-    hovertext=[f'Additional info for point {i}' for i in range(len(training_data))]
-)
+
 st.plotly_chart(fig, use_container_width=True)
