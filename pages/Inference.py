@@ -2,6 +2,7 @@ import streamlit as st
 import numpy as np
 import pandas as pd
 from sklearn.preprocessing import OrdinalEncoder
+from sklearn.impute import SimpleImputer
 from sklearn.ensemble import AdaBoostRegressor
 from sklearn.ensemble import HistGradientBoostingRegressor
 from sklearn.neighbors import KNeighborsRegressor
@@ -19,6 +20,10 @@ def app():
         df.replace([np.inf, -np.inf, 'Undefined', 'Unknown'], np.nan, inplace=True)
 
         categorical_columns = ['ffs_frac_type', 'relative_well_position', 'batch_frac_classification', 'well_family_relationship']
+
+        # Impute nan values
+        imputer = SimpleImputer(strategy='constant', fill_value='missing')
+        df[categorical_columns] = imputer.fit_transform(df[categorical_columns])
 
         # Ordinal encode categorical columns
         encoder = pickle.load(open('Model/encoder.pkl', 'rb'))
