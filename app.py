@@ -5,6 +5,7 @@ import plotly.graph_objects as go
 import streamlit as st
 from sklearn.model_selection import train_test_split
 from sklearn.neighbors import KNeighborsRegressor
+from plotly.subplots import make_subplots
 
 #
 # Data Loading
@@ -75,6 +76,8 @@ fig.add_trace(go.Scatter(
     hovertext=['id: ' + str(id) for id in training_data['pad_id']]
 ))
 
+
+
 fig.update_layout(
     plot_bgcolor='#0f1116',  # Dark plot background
     paper_bgcolor='#0f1116',  # Dark around the plot
@@ -90,3 +93,24 @@ fig.update_layout(
 )
 
 st.plotly_chart(fig, use_container_width=True)
+
+three_n = px.imshow(knn_results[3].reshape((1000, 1000)), x = xx, y = yy)
+five_n = px.imshow(knn_results[5].reshape((1000, 1000)), x = xx, y = yy)
+ten_n= px.imshow(knn_results[10].reshape((1000, 1000)), x = xx, y = yy)
+fifteen_n = px.imshow(knn_results[15].reshape((1000, 1000)), x = xx, y = yy)
+
+new_fig = make_subplots(rows=2, cols=2, subplot_titles=("3 Neighbors", "5 Neighbors", "10 Neighbors", "15 Neighbors"))
+
+# Add the image plots to the subplots, adjusting row and col as needed
+new_fig.add_trace(three_n.data[0], row=1, col=1)
+new_fig.add_trace(five_n.data[0], row=1, col=2)
+new_fig.add_trace(ten_n.data[0], row=2, col=1)
+new_fig.add_trace(fifteen_n.data[0], row=2, col=2)
+
+##TODO setting this color scale doesn't do anything for some reason
+new_fig.update_traces(autocolorscale = True, colorscale='viridis')
+
+new_fig.update_layout(autosize=True, height=600, width=600)
+
+
+st.plotly_chart(new_fig, use_container_width=True)
