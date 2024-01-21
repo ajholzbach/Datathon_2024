@@ -5,7 +5,7 @@ def app():
     st.title("Data Wrangling")
 
     st.markdown("## Data Cleaning")
-    st.markdown("First, We read in the provided training data, which has `x` numerical features and `y` categorical features.")
+    st.markdown("First, We read in the provided training data, which has 21 numerical features and 6 categorical features.")
 
     st.markdown('Several features have "Undefined", "Unknown", or "NaN" values. We replace "Undefined" and "Unknown" values with "NaN" values, and show them in the figure below.')
     nan_image = Image.open('Figures/NaNs.png')
