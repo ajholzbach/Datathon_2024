@@ -1,28 +1,24 @@
-# Project Name
+# Rice University Datathon 2024 Chevron Track
 
-## Description
+## Team Members
 
-[Provide a brief description of your project]
-
-## Table of Contents
-
-- [Installation](#installation)
-- [Usage](#usage)
-- [Contributing](#contributing)
-- [License](#license)
+- Alex Holzbach
+- Arnav Burudgunte
+- TBD
 
 ## Installation
 
-[Provide instructions on how to install and set up your project]
+ * Clone the repository
+ ```bash
+    git clone https://github.com/ajholzbach/Datathon_2024.git
+```
+ * Install the requirements
+ ```bash
+    pip install -r requirements.txt
+```
 
 ## Usage
-
-[Provide instructions on how to use your project]
-
-## Contributing
-
-[Provide guidelines for contributing to your project]
-
-## License
-
-[Specify the license under which your project is distributed]
+ * Run the app locally
+ ```bash
+    streamlit run Home.py
+```

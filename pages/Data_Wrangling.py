@@ -2,7 +2,7 @@ import streamlit as st
 from PIL import Image
 
 def app():
-    st.title("Data Wrangling Page")
+    st.title("Data Wrangling")
 
     st.markdown("## Data Cleaning")
     st.markdown("First, We read in the provided training data, which has `x` numerical features and `y` categorical features.")

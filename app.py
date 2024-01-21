@@ -36,7 +36,7 @@ knn_values = [3, 5, 10, 15]
 #
 
 X = training_data[['surface_x', 'surface_y']]
-y = training_data['OilPeakRate'] 
+y = training_data['OilPeakRate']
 knn_results = {}
 xx = np.linspace(x_min, x_max, 1000)
 yy = np.linspace(x_min, x_max, 1000)

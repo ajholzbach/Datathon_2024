@@ -1,5 +1,4 @@
 import streamlit as st
-import numpy as np
 from PIL import Image
 import pickle
 import plotly.express as px
@@ -7,7 +6,13 @@ import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 
 def app():
-    st.title("Exploratory Data Analysis Page")
+    st.title("Exploratory Data Analysis")
+
+    st.markdown("## Feature Correlation")
+    st.markdown("We start by looking at the correlations between all of the features and each other, as well as the target variables.")
+    correlation_heatmap = Image.open('Figures/correlation_heatmap.png')
+    st.image(correlation_heatmap, caption='Correlation Heatmap', width=1000)
+    st.markdown("As you can see, some of the features are highly correlated with each other and might be redundant.")
 
     st.markdown("## Categorical Trends")
 
@@ -36,7 +41,6 @@ def app():
 
     # Make a slider to control the number of neighbors (Either 2, 8, 15, 30, or 50)
     kval = st.slider("Number of Neighbors", min_value=2, max_value=30, step=7)
-    st.markdown(f"{kval}")
 
     # Load predictions from pickle files
     predictions = {}
