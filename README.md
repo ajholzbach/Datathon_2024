@@ -4,7 +4,8 @@
 
 - Alex Holzbach
 - Arnav Burudgunte
-- TBD
+- Chuk Uzowihe
+- Evan Stegall
 
 ## Installation
 
