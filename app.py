@@ -76,8 +76,6 @@ fig.add_trace(go.Scatter(
     hovertext=['id: ' + str(id) for id in training_data['pad_id']]
 ))
 
-
-
 fig.update_layout(
     plot_bgcolor='#0f1116',  # Dark plot background
     paper_bgcolor='#0f1116',  # Dark around the plot
