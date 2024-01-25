@@ -24,6 +24,9 @@
     streamlit run Home.py
 ```
 
+## Demo
+Click [here](https://youtu.be/Iu4ERQpr5gw) for the demo video.
+
 ## Data Wrangling
 ### Data Cleaning
 First, We read in the provided training data, which has 21 numerical features and 6 categorical features.
