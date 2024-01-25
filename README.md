@@ -1,4 +1,4 @@
-# Rice University Datathon 2024 Chevron Track
+# Rice University Datathon 2024 Chevron Track (First Place)
 
 ## Team Members
 
